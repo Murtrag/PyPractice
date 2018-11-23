@@ -1,12 +1,11 @@
 #game = [[2,2,1],
 #		[1,2,1],
-#		[1,1,2]]
+#		[1,2,2]]
 
 def check_if_win(game):
 	col_res = {}
 	for col in game:
 		if all(x == col[0] for x in col):
-			print("wygrał gracz ", col[0])
 			return col[0]
 
 		for iteration,x in enumerate(col, start=1):  #created dict to check more complex conditions
