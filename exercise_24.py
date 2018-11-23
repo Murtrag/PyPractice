@@ -8,4 +8,4 @@ def create_board(dim):
 		print(line)
 
 
-print(create_board(4))
+#print(create_board(4))
