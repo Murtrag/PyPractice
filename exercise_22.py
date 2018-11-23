@@ -1,9 +1,7 @@
-hoo_file = open("data.txt", "r")
-
 counter=0
 count_group = {}
 
-for line in open("data.txt","r"):
+for line in open("files/data.txt","r"):
 	line =line.split("/")
 	if not line[2] in count_group:
 		count_group[line[2]]=1
