@@ -1,6 +1,6 @@
 class LessThan():
     def __init__(self, n_list: iter):
-        self.n_list = num
+        self.n_list = n_list
 
     @prooerty
     def less_than_5(self):
