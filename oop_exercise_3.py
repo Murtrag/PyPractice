@@ -1,14 +1,16 @@
+from collections.abc import Iterable
+
 class LessThan():
-    def __init__(self, n_list: iter):
+    def __init__(self, n_list: Iterable) -> None:
         self.n_list = n_list
 
     @prooerty
-    def less_than_5(self):
+    def less_than_5(self) -> tuple:
         return (
             x for x in self.n_list if x<5
               )
 
-    def less_than(self, input_number):
+    def less_than(self, input_number: int) -> tuple:
         return (
             x for x in self.n_list if x<input_number
               )
