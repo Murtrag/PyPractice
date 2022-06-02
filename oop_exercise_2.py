@@ -59,8 +59,9 @@ print(
 
 number2 = input('Input number2 to check: ')
 
+test = EvenHandler().set_next(OddHandler())
 print(
-    even_h.handle(int(number)/int(number2))
+    test.handle(int(number)/int(number2))
     )
 
     
