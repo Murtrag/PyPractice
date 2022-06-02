@@ -10,7 +10,7 @@ class LessThan():
 
     def less_than(self, input_number):
         return (
-            x for x in self.n_list if x<self.input_number
+            x for x in self.n_list if x<input_number
               )
 
 u_input = [1,2,3,4,5,6,7,8,9,10,11,12]
