@@ -56,6 +56,13 @@ number = input("Input number to check: ")
 print(
     four_m_h.handle(int(number))
     )
+
+number2 = input('Input number2 to check: ')
+
+print(
+    even_h.handle(int(number)/int(number2))
+    )
+
     
     
     
