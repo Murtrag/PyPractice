@@ -5,12 +5,12 @@ class LessThan():
         self.n_list = n_list
 
     @prooerty
-    def less_than_5(self) -> tuple:
+    def less_than_5(self) -> generator:
         return (
             x for x in self.n_list if x<5
               )
 
-    def less_than(self, input_number: int) -> tuple:
+    def less_than(self, input_number: int) -> generator:
         return (
             x for x in self.n_list if x<input_number
               )
