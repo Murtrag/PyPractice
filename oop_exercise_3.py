@@ -1,15 +1,19 @@
 class LessThan():
-    def __init__(self):
-        self.num = num
+    def __init__(self, n_list: iter):
+        self.n_list = num
 
     @prooerty
     def less_than_5(self):
-        return self.num<5
+        return (
+            x for x in self.n_list if x<5
+              )
 
     def less_than(self, input_number):
-        return self.num < input_number
+        return (
+            x for x in self.n_list if x<self.input_number
+              )
 
-u_input = input("input number to check")
-lt = LessThan(209)
-print("is less than 5? ",lt.less_than_5)
-print("is less than 11", lt.less_than(11))
+u_input = [1,2,3,4,5,6,7,8,9,10,11,12]
+lt = LessThan(u_input)
+print("less than 5? ",lt.less_than_5)
+print("less than 11", lt.less_than(11))
