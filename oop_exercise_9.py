@@ -1,5 +1,5 @@
 from __future__ import annotations
-from abc import ABC, abstraction
+from abc import ABC, abstractmethod
 from typing import Any, Optional
 
 import random
@@ -17,33 +17,36 @@ class AbstractAnsHandler(AnsHandler):
   _next_handler: AnsHandler = None
     
   def set_next(self, handler: AnsHandler) -> AnsHandler:
-    AbstractAnsHandler._next_handler = handler
+    self._next_handler = handler
     return handler
     
+  @abstractmethod  
   def handle(self, request: dict) -> Optional:
-    if AbstractAnsHandler._next_handler:
-      retrun AbstractAnsHandler._next_handler.handle(request)
+    print(self._next_handler)  
+    if self._next_handler:
+      return self._next_handler.handle(request)
     return None
 
 class ExitHandler(AbstractAnsHandler):
-  def handle(self, request: list) -> None:  # request should contain two values to compare values
+  def handle(self, request: list) -> dict:
+    print(request)
     if "exit" in request["answear"]:
-      return "exit"
+      return {"aswear": "bye", "status": -1}
     return super().handle(request)
 class BiggerHandler(AbstractAnsHandler):
-  def handle(self, request: dict) -> None:
-    if request["answear"] > request["guess"]:
-      return "Too big!"
+  def handle(self, request: dict) -> dict:
+    if int(request["answear"]) > int(request["guess"]):
+      return {"aswear": "Too big!", "status": 1}
     return super().handle(request)
 class SmallerHandler(AbstractAnsHandler):
-  def handle(self, request: dict) -> None:
-    if request["answear"] > request["guess"]:
-      return "Too small!"
+  def handle(self, request: dict) -> dict:
+    if int(request["answear"]) < int(request["guess"]):
+      return {"aswear": "Too small!", "status": 1}
     return super().handle(request)
 class EqualHandler(AbstractAnsHandler):
-  def handle(self, request: dict) -> None:
-    if request["answear"] == request["guess"]:
-      return "Good job that is a correct answear!"
+  def handle(self, request: dict) -> dict:
+    if int(request["answear"]) == int(request["guess"]):
+      return {"aswear": "Good job that is a correct answear!", "status": 0}
     return super().handle(request)
 
 class RandomGame:
@@ -54,8 +57,9 @@ class RandomGame:
     return number == self.guess_num
     
   def evaluate(self, answear: str) -> str:
-      handler = ExitHandler().set_next(BiggerHandler).set_next(SmallerHandle).set_next(EqualHandle)
-      handler.handle({
+      handler = ExitHandler()
+      handler.set_next(BiggerHandler()).set_next(SmallerHandler()).set_next(EqualHandler())
+      return handler.handle({
         "answear": answear,
         "guess": self.guess_num
       })
@@ -67,7 +71,7 @@ class RandomGame:
 
       
 
-def game():
+def play():
   rg : RandomGame = RandomGame()
   while True:
       print("New game, try to guess a number from <1;9>")
@@ -75,13 +79,14 @@ def game():
       while True:
         answear : str = input("What is your guess? ")
         evaluation: str = rg.evaluate(answear)
-        if rg.is_correct(int(answear)):
-          print("Good job that is a correct answear!")
+        if evaluation["status"] == 0:
           break
-        print("Nop is ")
+        if evaluation["status"] == -1:
+          exit(0)
+        print(evaluation["aswear"])
 
 if __name__ == "__main__":
-    game()
+    play()
 
 
 
