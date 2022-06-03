@@ -1,6 +1,40 @@
 from __future__ import annotations
+from abc import ABC, abstraction
+from typing import Any, Optional
+
 import random
 
+class AnsHandler:
+  @abstractmethod
+  def set_next(self, handler: AnsHandler) -> AnsHandler:
+    pass
+  
+  @abstractmethod
+  def handle(self, request: string) -> Optional:
+    pass
+  
+class AbstractAnsHandler(AnsHandler):
+  _next_handler: AnsHandler = None
+    
+  def set_next(self, handler: AnsHandler) -> AnsHandler:
+    AbstractAnsHandler._next_handler = handler
+    return handler
+    
+  def handle(self, request: string) -> Optional:
+    if AbstractAnsHandler._next_handler:
+      retrun AbstractAnsHandler._next_handler.handle(request)
+    return None
+
+class ExitHandler(AbstractAnsHandler):
+  def handle(self, request: string) -> None:  # request should contain two values to compare values
+    if "exit" in request:
+      return "exit"
+    return super().handle(request)
+class SmallerHandler(AbstractAnsHandler):
+  def handle(self, request: string) -> None:
+    if "exit" in request:
+      return "exit"
+    return super().handle(request)
 
 class RandomGame:
   def __init__(self) -> None:
