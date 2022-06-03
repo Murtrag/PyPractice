@@ -10,7 +10,7 @@ class AnsHandler:
     pass
   
   @abstractmethod
-  def handle(self, request: string) -> Optional:
+  def handle(self, request: dict) -> Optional:
     pass
   
 class AbstractAnsHandler(AnsHandler):
@@ -20,20 +20,30 @@ class AbstractAnsHandler(AnsHandler):
     AbstractAnsHandler._next_handler = handler
     return handler
     
-  def handle(self, request: string) -> Optional:
+  def handle(self, request: dict) -> Optional:
     if AbstractAnsHandler._next_handler:
       retrun AbstractAnsHandler._next_handler.handle(request)
     return None
 
 class ExitHandler(AbstractAnsHandler):
-  def handle(self, request: string) -> None:  # request should contain two values to compare values
-    if "exit" in request:
+  def handle(self, request: list) -> None:  # request should contain two values to compare values
+    if "exit" in request["answear"]:
       return "exit"
     return super().handle(request)
+class BiggerHandler(AbstractAnsHandler):
+  def handle(self, request: dict) -> None:
+    if request["answear"] > request["guess"]:
+      return "Too big!"
+    return super().handle(request)
 class SmallerHandler(AbstractAnsHandler):
-  def handle(self, request: string) -> None:
-    if "exit" in request:
-      return "exit"
+  def handle(self, request: dict) -> None:
+    if request["answear"] > request["guess"]:
+      return "Too small!"
+    return super().handle(request)
+class EqualHandler(AbstractAnsHandler):
+  def handle(self, request: dict) -> None:
+    if request["answear"] == request["guess"]:
+      return "Good job that is a correct answear!"
     return super().handle(request)
 
 class RandomGame:
@@ -44,7 +54,12 @@ class RandomGame:
     return number == self.guess_num
     
   def evaluate(self, answear: str) -> str:
-      pass
+      handler = ExitHandler().set_next(BiggerHandler).set_next(SmallerHandle).set_next(EqualHandle)
+      handler.handle({
+        "answear": answear,
+        "guess": self.guess_num
+      })
+      
   
   def restart_guess_num(self) -> None:
     self.guess_num : int = random.randint(1,9)
