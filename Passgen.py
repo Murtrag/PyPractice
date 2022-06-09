@@ -44,3 +44,12 @@ class TextPhrase(Strategies):
              x.upper() for i, x in enumerate(password)
              if i%2==0
         )
+
+if __name__ == "__main__":
+     pgc= PassGenContext()
+     pgc.set_strategies(
+         TextChars(8),
+         TextPhrase("krowi placek"),
+         TextPokemon(2)
+     )
+     pgc.get_password()
