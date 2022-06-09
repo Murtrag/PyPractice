@@ -13,11 +13,13 @@ class PassGenContext:
 
     def get_password(self) -> str:
         for strategy in self.__strategies:
-            self.__passwrod = strategy.transform_password(self.__password)
-        return self.__passwrod or "dupa"
+            self.__password = strategy.transform_password(self.__password)
+        return self.__password or "dupa"
 
 
 #Strategies
+import random
+
 class Strategy:
     def __init__(self) -> None:
         pass
@@ -40,9 +42,17 @@ class TextChars(Strategy):
 
 class TextPhrase(Strategy):
     def __init__(self, phrase) -> None:
-        pass
+        self.__phrase = phrase
+        
+    def __get_letters(self) -> str:
+        return "".join([
+            x[0] for x in self.__phrase.split(' ')
+            ])
+            
     def transform_password(self, password) -> str:
-        return password + "phrase"
+        pass_list = [password, self.__get_letters()]
+        random.shuffle(pass_list)
+        return "".join(pass_list)
 
 class TextPokemon(Strategy):
     def __init__(self, boolean) -> None:
@@ -58,7 +68,7 @@ if __name__ == "__main__":
      pgc.set_strategies= [
          TextChars(8),
          TextPhrase("krowi placek"),
-         TextPokemon(2)
+         #TextPokemon(2)
      ]
      print(
      pgc.get_password()
