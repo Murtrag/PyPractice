@@ -55,12 +55,13 @@ class TextPhrase(Strategy):
         return "".join(pass_list)
 
 class TextPokemon(Strategy):
-    def __init__(self, boolean) -> None:
-        pass
+    def __init__(self, step) -> None:
+        self.__step = step
+    
     def transform_password(self, password) -> str:
         return ''.join(
-             x.upper() for i, x in enumerate(password)
-             if i%2==0
+             x.upper() if i % self.__step == 0 else x.lower()  for i, x in enumerate(password)
+             
         )
 
 if __name__ == "__main__":
@@ -68,7 +69,7 @@ if __name__ == "__main__":
      pgc.set_strategies= [
          TextChars(8),
          TextPhrase("krowi placek"),
-         #TextPokemon(2)
+         TextPokemon(3)
      ]
      print(
      pgc.get_password()
