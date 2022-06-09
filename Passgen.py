@@ -41,6 +41,6 @@ class TextPhrase(Strategies):
         pass
     def transform_password(self, password) -> str:
         return ''.join(
-             x.upper() for x in password
-             if x%2==0
+             x.upper() for i, x in enumerate(password)
+             if i%2==0
         )
