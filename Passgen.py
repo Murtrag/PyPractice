@@ -87,23 +87,31 @@ class MainContext:
         
 #States
 class MainState:
-    __context: MainContext = MainContext() 
+    _name: str = ""
+    __context: MainContext = MainContext()
+ 
     def __init__(self) -> None:
         pass
-    def perform() -> None:
+
+    def perform(self) -> None:
+        print(f" --{name}-- ")
         
 
     
 class SetState:
-    pass
+    def perform(self) -> None:
+        pass
 
 class SelectState:    
-    pass
+    def perform(self) -> None:
+        pass
+
 
 class MenuState:    
-    pass
+    def perform(self) -> None:
+        pass
 
-    
+ 
     
 # State Set   
 # help
