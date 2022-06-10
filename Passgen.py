@@ -99,16 +99,22 @@ class MainState:
 
     
 class SetState:
+    __name = "Set State"
     def perform(self) -> None:
+        super().perform()
         pass
 
-class SelectState:    
+class SelectState: 
+    __name = "Select State"
     def perform(self) -> None:
+        super().perform() 
         pass
 
 
-class MenuState:    
+class MenuState: 
+    __name = "Menu State"   
     def perform(self) -> None:
+        super().perform()
         pass
 
  
