@@ -65,11 +65,43 @@ class TextPokemon(Strategy):
         )
 ################################################################
 class MainContext:
-    state: State = None
-    password_generator: PassGenContext= PassGenContext
-    def create_password(self) -> sth:
+    __state: State = None
+    __password_generator: PassGenContext = PassGenContext
+    
+    @property
+    def state(self) -> list:
+        return self.__state
+
+    @strategies.setter
+    def set_state(self, state) -> None:
+        self.__state = state
+        
+    def set_password(self) -> None:
+        __state.perform()
+        
+    def select_object(self) -> None:
+        __state.perform()
+        
+    def display_data(self) -> None:
+        __state.perform()
+        
+#States
+class MainState:
+    __context: MainContext = MainContext() 
+    def __init__(self) -> None:
         pass
-    def 
+    def perform() -> None:
+        
+
+    
+class SetState:
+    pass
+
+class SelectState:    
+    pass
+
+class MenuState:    
+    pass
 
     
     
