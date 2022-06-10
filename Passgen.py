@@ -66,6 +66,7 @@ class TextPokemon(Strategy):
 ################################################################
 class MainContext:
     state: State = None
+    password_generator: PassGenContext= PassGenContext
     def create_password(self) -> sth:
         pass
     def 
