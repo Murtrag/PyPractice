@@ -63,6 +63,14 @@ class TextPokemon(Strategy):
              x.upper() if i % self.__step == 0 else x.lower()  for i, x in enumerate(password)
              
         )
+################################################################
+class MainContext:
+    state: State = None
+    def create_password(self) -> sth:
+        pass
+    def 
+
+
 
 if __name__ == "__main__":
      pgc= PassGenContext()
