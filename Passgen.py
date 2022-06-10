@@ -71,6 +71,28 @@ class MainContext:
         pass
     def 
 
+    
+    
+# State Set   
+# help
+# $ set password http://www.google.com
+# choose strategies asdfasdfas
+# $ 1356
+# set length
+# set pass phrase
+# set ...
+
+#State Modify
+
+#Stat Select
+# http://www.google.pl >> 
+
+#State Menu
+# $ show all
+# select http://www.google.pl
+# $ set password http://www.google.com
+
+
 
 
 if __name__ == "__main__":
