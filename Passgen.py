@@ -118,6 +118,11 @@ class MenuState:
         pass
 
  
+def app():
+    prompt = ">> "
+    while True:
+        user_input = input(f"{prompt}")
+        #Chain of responsibilities?
     
 # State Set   
 # help
