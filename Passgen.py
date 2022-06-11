@@ -93,7 +93,7 @@ class MainState:
 
  
     def __init__(self) -> None:
-        pass
+        self.__prompt: str = ">> "
 
     def perform(self) -> None:
         print(f" --{name}-- ")
@@ -102,19 +102,25 @@ class MainState:
     
 class SetState:
     __name = "Set State"
+    def __init__(self) -> None:
+        super().__init__(self)
     def perform(self) -> None:
         super().perform()
         pass
 
 class SelectState: 
     __name = "Select State"
+    def __init__(self) -> None:
+        super().__init__(self)
     def perform(self) -> None:
         super().perform() 
         pass
 
 
 class MenuState: 
-    __name = "Menu State"   
+    __name = "Menu State"
+    def __init__(self) -> None:
+        super().__init__(self) 
     def perform(self) -> None:
         super().perform()
         pass
