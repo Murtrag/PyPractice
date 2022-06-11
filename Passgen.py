@@ -67,7 +67,8 @@ class TextPokemon(Strategy):
 class MainContext:
     __state: State = None
     __password_generator: PassGenContext = PassGenContext
-    
+    __prompt: str = ">> "
+
     @property
     def state(self) -> list:
         return self.__state
@@ -89,6 +90,7 @@ class MainContext:
 class MainState:
     _name: str = ""
     __context: MainContext = MainContext()
+
  
     def __init__(self) -> None:
         pass
@@ -117,7 +119,10 @@ class MenuState:
         super().perform()
         pass
 
- 
+class MenuFasade:
+    
+
+
 def app():
     prompt = ">> "
     while True:
