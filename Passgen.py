@@ -126,7 +126,13 @@ class MenuState:
         pass
 
 class MenuFasade:
-    
+    mc = MainContext()
+    def run(self):
+       
+        
+        while True:
+            user_input = input(f"{prompt}")
+            
 
 
 def app():
