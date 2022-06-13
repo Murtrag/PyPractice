@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+db = {}
 class PassGenContext:
     def __init__(self) -> None:
         self.__strategies = list()
@@ -27,7 +27,6 @@ class Strategy:
         pass
 
     def transform_password(self, password) -> str:
-        print("tr", password)
         return password
 
 class TextLength(Strategy):
@@ -69,31 +68,30 @@ class TextPokemon(Strategy):
 
 #States
 class MainState:
-    _name: str = ""
-    
-
- 
+    _name: str = "" 
     def __init__(self, context, element="") -> None:
-        print("init super variables")
         self._prompt: str = ">> "
         self._context = context
-        print("self context in super ", self._context)
-        
+
     @property
     def prompt(self) -> None:
         return self._prompt
 
     def perform(self, input_) -> None:
-        print(f" --{self._name}-- ")
-        state = MenuState(self._context)
+        #print(f" --{self._name}-- ")
         context = self._context
         if "set" in input_:
-            state = SetState(context)
-        if "select" in input_:
-            state = SelectState(context)
-        if "menu" in input_:
-            state = MenuState(context)
-        self._context.state = state
+            self._context.state = SetState(context)
+            return True
+        elif "select" in input_:
+            self._context.state = SelectState(context)
+            return True
+        elif "menu" in input_:
+            self._context.state = MenuState(context)
+            return True
+        else:
+            return False
+        
     
 
 class SetState(MainState):
@@ -111,23 +109,32 @@ class SetState(MainState):
     def prompt(self, prompt) -> None:
         self._prompt = prompt
     	
-    def __set_password(self) -> None: 
-        print("Set password")
-        input_ = input(f"{self.prompt} >>")
-        pass
-      
-    def __set_target(self) -> None:   
-        input_ = input(f"{self.prompt} >>")
-        self.prompt = input_
+    def __set_password(self) -> None:
+        try:
+          print("Set password")
+          input_ = input(f"{self.prompt} >> ")
+          db[self.prompt] = input_ 
+        except Exception as err:
+          print(f"Get unexpected error: \n {err}")
+
+    def __set_target(self) -> None:
+        try:
+          print("Set target")
+          input_ = input(">> ")
+          self.prompt = input_
+        except Exception as err:
+          print(f"Get unexpected error: \n {err}")
 
     def perform(self, input_) -> None:
         super().perform(input_)
         self.__set_target()
         self.__set_password()
+        print('password has been created')
+        self._context.state =  MenuState(self._context)
 
-class SelectState(MainState): 
-    
+class SelectState(MainState):    
     _name = "Select State"
+  
     def __init__(self, context, element) -> None:
         self.__prompt: str = f"({element})>> "
         super().__init__(self)
@@ -138,7 +145,6 @@ class SelectState(MainState):
         
     def perform(self, input_) -> None:
         super().perform(input_) 
-        pass
 
 
 class MenuState(MainState): 
@@ -149,12 +155,18 @@ class MenuState(MainState):
          
     @property
     def prompt(self) -> None:
-        return self._prompt
-    
+        return self._prompt    
         
     def perform(self, input_) -> None:
-        super().perform(input_)
-        
+        is_performed = super().perform(input_)
+        if is_performed is True:
+          return          
+        if "list" in input_:
+          pprint(db)
+        elif "help" in input_:
+          print("help")
+        else:
+          print("invalid syntax")        
         
 class MainContext:
     __state: MainState = None
@@ -169,63 +181,23 @@ class MainContext:
     def state(self, state) -> None:
         self.__state = state
         
-    def set_password(self) -> None:
-        __state.perform()
-        
-    def select_object(self) -> None:
-        __state.perform()
-        
-    def display_data(self) -> None:
-        __state.perform()
         
 
-
-class MenuFasade:
-    mc = MainContext()
-    def run(self):
-        while True:
-            user_input = input(f"{prompt}")
-            
-
-
-def app():
+def fasade():
     mc = MainContext()
     mc.state = MenuState(mc)
     while True:
         user_input = input(f"{mc.state.prompt}")
         mc.state.perform(user_input)
-        #Chain of responsibilities?
     
-# State Set   
-# help
-# $ set password http://www.google.com
-# choose strategies asdfasdfas
-# $ 1356
-# set length
-# set pass phrase
-# set ...
-
-#State Modify
-
-#Stat Select
-# http://www.google.pl >> 
-
-#State Menu
-# $ show all
-# select http://www.google.pl
-# $ set password http://www.google.com
-
-
-
-
 if __name__ == "__main__":
-     pgc= PassGenContext()
-     pgc.set_strategies= [
-         TextChars(8),
-         TextPhrase("krowi placek"),
-         TextPokemon(3)
-     ]
-     print(
-     pgc.get_password()
-     )
-     app()
+     #pgc= PassGenContext()
+     #pgc.set_strategies= [
+     #    TextChars(8),
+     #    TextPhrase("krowi placek"),
+     #    TextPokemon(3)
+     #]
+     #print(
+     #pgc.get_password()
+     #)
+     fasade()
