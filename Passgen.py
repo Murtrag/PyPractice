@@ -76,6 +76,10 @@ class MainState:
     def __init__(self, context) -> None:
         self.__prompt: str = ">> "
         self.__context = context
+        
+    @property
+    def prompt(self) -> None:
+        return self.__prompt
 
     def perform(self) -> None:
         print(f" --{name}-- ")
@@ -93,6 +97,10 @@ class SetState:
     	#set name of target password
     	#set and change prompt
     	pass
+    
+    @property
+    def prompt(self) -> None:
+        return self.__prompt
     	
     def set_password(self) -> None: 
         #ask and set password 
@@ -108,6 +116,10 @@ class SelectState:
     def __init__(self, element) -> None:
         self.__prompt: str = f"({element})>> "
         super().__init__(self)
+    
+    @property
+    def prompt(self) -> None:
+        return self.__prompt
         
     def perform(self) -> None:
         super().perform() 
@@ -117,8 +129,12 @@ class SelectState:
 class MenuState: 
     __name = "Menu State"
     def __init__(self) -> None:
+        super().__init__()
         self.__prompt: str = ">> "
-        super().__init__(self) 
+         
+    @property
+    def prompt(self) -> None:
+        return self.__prompt
         
     def perform(self) -> None:
         super().perform()
@@ -134,7 +150,7 @@ class MainContext:
         return self.__state
 
     @state.setter
-    def set_state(self, state) -> None:
+    def state(self, state) -> None:
         self.__state = state
         
     def set_password(self) -> None:
@@ -159,9 +175,10 @@ class MenuFasade:
 
 
 def app():
-    prompt = ">> "
+    mc = MainContext()
+    mc.state = MenuState()
     while True:
-        user_input = input(f"{prompt}")
+        user_input = input(f"{mc.state.prompt}")
         #Chain of responsibilities?
     
 # State Set   
