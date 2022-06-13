@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 class PassGenContext:
     def __init__(self) -> None:
         self.__strategies = list()
@@ -64,8 +66,66 @@ class TextPokemon(Strategy):
              
         )
 ################################################################
+
+#States
+class MainState:
+    _name: str = ""
+    
+
+ 
+    def __init__(self, context) -> None:
+        self.__prompt: str = ">> "
+        self.__context = context
+
+    def perform(self) -> None:
+        print(f" --{name}-- ")
+        
+
+    
+class SetState:
+    __name = "Set State"
+    
+    def __init__(self) -> None:
+        self.__prompt: str = ">> "
+        super().__init__(self)
+        
+    def set_target(self):
+    	#set name of target password
+    	#set and change prompt
+    	pass
+    	
+    def set_password(self) -> None: 
+        #ask and set password 
+        pass
+        
+    def perform(self) -> None:
+        super().perform()
+        pass
+
+class SelectState: 
+    
+    __name = "Select State"
+    def __init__(self, element) -> None:
+        self.__prompt: str = f"({element})>> "
+        super().__init__(self)
+        
+    def perform(self) -> None:
+        super().perform() 
+        pass
+
+
+class MenuState: 
+    __name = "Menu State"
+    def __init__(self) -> None:
+        self.__prompt: str = ">> "
+        super().__init__(self) 
+        
+    def perform(self) -> None:
+        super().perform()
+        pass
+        
 class MainContext:
-    __state: State = None
+    __state: MainState = None
     __password_generator: PassGenContext = PassGenContext
     __prompt: str = ">> "
 
@@ -73,7 +133,7 @@ class MainContext:
     def state(self) -> list:
         return self.__state
 
-    @strategies.setter
+    @state.setter
     def set_state(self, state) -> None:
         self.__state = state
         
@@ -86,44 +146,7 @@ class MainContext:
     def display_data(self) -> None:
         __state.perform()
         
-#States
-class MainState:
-    _name: str = ""
-    __context: MainContext = MainContext()
 
- 
-    def __init__(self) -> None:
-        self.__prompt: str = ">> "
-
-    def perform(self) -> None:
-        print(f" --{name}-- ")
-        
-
-    
-class SetState:
-    __name = "Set State"
-    def __init__(self) -> None:
-        super().__init__(self)
-    def perform(self) -> None:
-        super().perform()
-        pass
-
-class SelectState: 
-    __name = "Select State"
-    def __init__(self) -> None:
-        super().__init__(self)
-    def perform(self) -> None:
-        super().perform() 
-        pass
-
-
-class MenuState: 
-    __name = "Menu State"
-    def __init__(self) -> None:
-        super().__init__(self) 
-    def perform(self) -> None:
-        super().perform()
-        pass
 
 class MenuFasade:
     mc = MainContext()
@@ -173,3 +196,4 @@ if __name__ == "__main__":
      print(
      pgc.get_password()
      )
+     app()
