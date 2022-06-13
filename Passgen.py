@@ -81,26 +81,27 @@ class MainState:
         
     @property
     def prompt(self) -> None:
-        return self.__prompt
+        return self._prompt
 
     def perform(self, input_) -> None:
         print(f" --{self._name}-- ")
         state = MenuState(self._context)
+        context = self._context
         if "set" in input_:
-            state = SetState()
+            state = SetState(context)
         if "select" in input_:
-            state = SelectState()
+            state = SelectState(context)
         if "menu" in input_:
-            state = MenuState()
+            state = MenuState(context)
         self._context.state = state
     
 
 class SetState(MainState):
     _name = "Set State"
     
-    def __init__(self) -> None:
-        super().__init__(self)
-        self.__prompt: str = "()>> "
+    def __init__(self, context, element="") -> None:
+        super().__init__(context, element)
+        self._prompt: str = f"({element})>> "
         
         
     def set_target(self):
@@ -110,15 +111,26 @@ class SetState(MainState):
     
     @property
     def prompt(self) -> None:
-        return self.__prompt
+        return self._prompt
+    
+    @prompt.setter
+    def prompt(self, prompt) -> None:
+        self._prompt = prompt
     	
-    def set_password(self) -> None: 
+    def __set_password(self) -> None: 
         #ask and set password 
         pass
+      
+    def __set_target(self) -> None: 
+        print("Set target name")      
+        input_ = input(f"{self.prompt} >>")
+        self.prompt = input_
+
         
     def perform(self, input_) -> None:
         super().perform(input_)
-        pass
+        self.__set_target()
+        self.__set_password()
 
 class SelectState(MainState): 
     
@@ -129,7 +141,7 @@ class SelectState(MainState):
     
     @property
     def prompt(self) -> None:
-        return self.__prompt
+        return self._prompt
         
     def perform(self, input_) -> None:
         super().perform(input_) 
