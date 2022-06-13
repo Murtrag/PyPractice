@@ -75,9 +75,9 @@ class MainState:
  
     def __init__(self, context, element="") -> None:
         print("init super variables")
-        self.__prompt: str = ">> "
-        self.__context = context
-        print("self context in super ", self.__context)
+        self._prompt: str = ">> "
+        self._context = context
+        print("self context in super ", self._context)
         
     @property
     def prompt(self) -> None:
@@ -146,12 +146,12 @@ class MenuState(MainState):
     def perform(self, input_) -> None:
         super().perform()
         print(self._context)
-        state = MenuState(self.__context)
+        state = MenuState(self._context)
         if input_ == "set":
             print("set state")
-            state = ChangeState()
+            state = SetState()
 
-        self.__context.state = state
+        self._context.state = state
         
 class MainContext:
     __state: MainState = None
