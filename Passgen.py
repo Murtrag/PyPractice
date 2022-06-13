@@ -103,12 +103,6 @@ class SetState(MainState):
         super().__init__(context, element)
         self._prompt: str = f"({element})>> "
         
-        
-    def set_target(self):
-    	#set name of target password
-    	#set and change prompt
-    	pass
-    
     @property
     def prompt(self) -> None:
         return self._prompt
@@ -118,15 +112,14 @@ class SetState(MainState):
         self._prompt = prompt
     	
     def __set_password(self) -> None: 
-        #ask and set password 
+        print("Set password")
+        input_ = input(f"{self.prompt} >>")
         pass
       
-    def __set_target(self) -> None: 
-        print("Set target name")      
+    def __set_target(self) -> None:   
         input_ = input(f"{self.prompt} >>")
         self.prompt = input_
 
-        
     def perform(self, input_) -> None:
         super().perform(input_)
         self.__set_target()
@@ -151,11 +144,7 @@ class SelectState(MainState):
 class MenuState(MainState): 
     __name = "Menu State"
     def __init__(self, context, element="") -> None:
-        print('goto parent')
         super().__init__(context, element)
-        print('backto child')
-        #self.__context = context
-        #print(self._prompt)
         self._prompt: str = ">> "
          
     @property
@@ -165,9 +154,6 @@ class MenuState(MainState):
         
     def perform(self, input_) -> None:
         super().perform(input_)
-        print(self._context)
-
-
         
         
 class MainContext:
