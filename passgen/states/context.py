@@ -1,5 +1,9 @@
+from __future__ import annotations
+
+from strategies.main import PassGenContext
+
 class AppContext:
-    __state: MainState = None
+    __state: AppContext = None
     __password_generator: PassGenContext = PassGenContext
     __prompt: str = ">> "
 
@@ -9,4 +13,4 @@ class AppContext:
 
     @state.setter
     def state(self, state) -> None:
-        self.__state = 
+        self.__state = state

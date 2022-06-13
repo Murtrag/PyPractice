@@ -1,8 +1,8 @@
-from context import AppContext
-from main import MainState
-from menu import MenuState
-from select import SelectState
-from set import SetState
+from .context import AppContext
+from .main import MainState
+from .menu import MenuState
+from .select import SelectState
+from .set import SetState
 
 __all__ = [
   "AppContext",

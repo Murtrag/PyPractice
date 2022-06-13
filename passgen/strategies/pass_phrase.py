@@ -1,5 +1,7 @@
 import random
 
+from .strategy import Strategy
+
 class TextPhrase(Strategy):
     def __init__(self, phrase) -> None:
         self.__phrase = phrase

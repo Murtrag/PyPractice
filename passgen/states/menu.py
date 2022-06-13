@@ -1,4 +1,6 @@
-from main import MainState
+from .main import MainState
+
+db = {}
 
 class MenuState(MainState): 
     __name = "Menu State"
@@ -15,7 +17,7 @@ class MenuState(MainState):
         if is_performed is True:
           return          
         if "list" in input_:
-          pprint(db)
+          print(db)
         elif "help" in input_:
           print("help")
         else:

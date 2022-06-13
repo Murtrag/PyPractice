@@ -1,4 +1,5 @@
 from states import AppContext, MenuState
+
 def fasade():
     mc = AppContext()
     mc.state = MenuState(mc)

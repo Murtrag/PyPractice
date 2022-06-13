@@ -1,3 +1,5 @@
+from .strategy import Strategy
+
 class TextLength(Strategy):
     def __init_(self, length) -> None:
         pass
