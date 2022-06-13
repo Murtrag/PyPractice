@@ -73,9 +73,11 @@ class MainState:
     
 
  
-    def __init__(self, context) -> None:
+    def __init__(self, context, element="") -> None:
+        print("init super variables")
         self.__prompt: str = ">> "
         self.__context = context
+        print("self context in super ", self.__context)
         
     @property
     def prompt(self) -> None:
@@ -89,8 +91,9 @@ class SetState(MainState):
     _name = "Set State"
     
     def __init__(self) -> None:
-        self.__prompt: str = "()>> "
         super().__init__(self)
+        self.__prompt: str = "()>> "
+        
         
     def set_target(self):
     	#set name of target password
@@ -112,7 +115,7 @@ class SetState(MainState):
 class SelectState(MainState): 
     
     _name = "Select State"
-    def __init__(self, element) -> None:
+    def __init__(self, context, element) -> None:
         self.__prompt: str = f"({element})>> "
         super().__init__(self)
     
@@ -127,18 +130,23 @@ class SelectState(MainState):
 
 class MenuState(MainState): 
     __name = "Menu State"
-    def __init__(self) -> None:
-        super().__init__(self)
-        self.__prompt: str = ">> "
+    def __init__(self, context, element="") -> None:
+        print('goto parent')
+        super().__init__(context, element)
+        print('backto child')
+        #self.__context = context
+        #print(self._prompt)
+        self._prompt: str = ">> "
          
     @property
     def prompt(self) -> None:
-        return self.__prompt
+        return self._prompt
     
         
     def perform(self, input_) -> None:
         super().perform()
-        state = MenuState()
+        print(self._context)
+        state = MenuState(self.__context)
         if input_ == "set":
             print("set state")
             state = ChangeState()
@@ -179,7 +187,7 @@ class MenuFasade:
 
 def app():
     mc = MainContext()
-    mc.state = MenuState()
+    mc.state = MenuState(mc)
     while True:
         user_input = input(f"{mc.state.prompt}")
         mc.state.perform(user_input)
