@@ -1,3 +1,5 @@
+from main import MainState
+
 class MenuState(MainState): 
     __name = "Menu State"
     def __init__(self, context, element="") -> None:

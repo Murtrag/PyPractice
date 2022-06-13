@@ -1,3 +1,5 @@
+from main import MainState
+
 class SetState(MainState):
     _name = "Set State"
     

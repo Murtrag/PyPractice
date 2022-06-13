@@ -1,10 +1,12 @@
+from states import AppContext, MenuState
 def fasade():
-    mc = MainContext()
+    mc = AppContext()
     mc.state = MenuState(mc)
     while True:
         user_input = input(f"{mc.state.prompt}")
         mc.state.perform(user_input)
-    
+
+fasade()
 if __name__ == "__main__":
      #pgc= PassGenContext()
      #pgc.set_strategies= [

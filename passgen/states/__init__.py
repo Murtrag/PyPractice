@@ -1,11 +1,13 @@
-#imports
+from context import AppContext
+from main import MainState
+from menu import MenuState
+from select import SelectState
+from set import SetState
 
-def fasade():
-    mc = MainContext()
-    mc.state = MenuState(mc)
-    while True:
-        user_input = input(f"{mc.state.prompt}")
-        mc.state.perform(user_input)
-    
-if __name__ == "__main__":
-     fasade()
+__all__ = [
+  "AppContext",
+  "MainState",
+  "MenuState",
+  "SelectState",
+  "SetState"  
+]

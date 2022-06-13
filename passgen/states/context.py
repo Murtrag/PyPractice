@@ -1,4 +1,4 @@
-class MainContext:
+class AppContext:
     __state: MainState = None
     __password_generator: PassGenContext = PassGenContext
     __prompt: str = ">> "

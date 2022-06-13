@@ -1,3 +1,5 @@
+from main import MainState
+
 class SelectState(MainState):    
     _name = "Select State"
   
