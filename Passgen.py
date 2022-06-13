@@ -82,15 +82,14 @@ class MainState:
         return self.__prompt
 
     def perform(self) -> None:
-        print(f" --{name}-- ")
-        
-
+        print(f" --{self._name}-- ")
     
-class SetState:
-    __name = "Set State"
+
+class SetState(MainState):
+    _name = "Set State"
     
     def __init__(self) -> None:
-        self.__prompt: str = ">> "
+        self.__prompt: str = "()>> "
         super().__init__(self)
         
     def set_target(self):
@@ -110,9 +109,9 @@ class SetState:
         super().perform()
         pass
 
-class SelectState: 
+class SelectState(MainState): 
     
-    __name = "Select State"
+    _name = "Select State"
     def __init__(self, element) -> None:
         self.__prompt: str = f"({element})>> "
         super().__init__(self)
@@ -126,19 +125,25 @@ class SelectState:
         pass
 
 
-class MenuState: 
+class MenuState(MainState): 
     __name = "Menu State"
     def __init__(self) -> None:
-        super().__init__()
+        super().__init__(self)
         self.__prompt: str = ">> "
          
     @property
     def prompt(self) -> None:
         return self.__prompt
+    
         
-    def perform(self) -> None:
+    def perform(self, input_) -> None:
         super().perform()
-        pass
+        state = MenuState()
+        if input_ == "set":
+            print("set state")
+            state = ChangeState()
+
+        self.__context.state = state
         
 class MainContext:
     __state: MainState = None
@@ -167,8 +172,6 @@ class MainContext:
 class MenuFasade:
     mc = MainContext()
     def run(self):
-       
-        
         while True:
             user_input = input(f"{prompt}")
             
@@ -179,6 +182,7 @@ def app():
     mc.state = MenuState()
     while True:
         user_input = input(f"{mc.state.prompt}")
+        mc.state.perform(user_input)
         #Chain of responsibilities?
     
 # State Set   
