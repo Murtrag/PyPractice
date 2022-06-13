@@ -83,8 +83,16 @@ class MainState:
     def prompt(self) -> None:
         return self.__prompt
 
-    def perform(self) -> None:
+    def perform(self, input_) -> None:
         print(f" --{self._name}-- ")
+        state = MenuState(self._context)
+        if "set" in input_:
+            state = SetState()
+        if "select" in input_:
+            state = SelectState()
+        if "menu" in input_:
+            state = MenuState()
+        self._context.state = state
     
 
 class SetState(MainState):
@@ -108,8 +116,8 @@ class SetState(MainState):
         #ask and set password 
         pass
         
-    def perform(self) -> None:
-        super().perform()
+    def perform(self, input_) -> None:
+        super().perform(input_)
         pass
 
 class SelectState(MainState): 
@@ -123,8 +131,8 @@ class SelectState(MainState):
     def prompt(self) -> None:
         return self.__prompt
         
-    def perform(self) -> None:
-        super().perform() 
+    def perform(self, input_) -> None:
+        super().perform(input_) 
         pass
 
 
@@ -144,14 +152,11 @@ class MenuState(MainState):
     
         
     def perform(self, input_) -> None:
-        super().perform()
+        super().perform(input_)
         print(self._context)
-        state = MenuState(self._context)
-        if input_ == "set":
-            print("set state")
-            state = SetState()
 
-        self._context.state = state
+
+        
         
 class MainContext:
     __state: MainState = None
