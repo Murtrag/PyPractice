@@ -6,8 +6,11 @@ class AppContext:
 
     def __init__(self, state: State) -> None:
       self.transition_to(state)
-      
+    
     @property
+    def state(self):  
+      return self._state
+
     def transition_to(self, state: State):
         self._state = state
         self._state.context = self

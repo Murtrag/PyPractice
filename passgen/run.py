@@ -1,8 +1,7 @@
 from states import AppContext, MenuState
 
 def fasade():
-    mc = AppContext()
-    mc.state = MenuState(mc)
+    mc = AppContext(MenuState(AppContext))
     while True:
         user_input = input(f"{mc.state.prompt}")
         mc.state.perform(user_input)
