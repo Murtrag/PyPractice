@@ -1,16 +1,13 @@
 from __future__ import annotations
 
-from strategies.main import PassGenContext
 
 class AppContext:
-    __state: AppContext = None
-    __password_generator: PassGenContext = PassGenContext
-    __prompt: str = ">> "
+    _state = None
 
+    def __init__(self, state: State) -> None:
+      self.transition_to(state)
+      
     @property
-    def state(self) -> list:
-        return self.__state
-
-    @state.setter
-    def state(self, state) -> None:
-        self.__state = state
+    def transition_to(self, state: State):
+        self._state = state
+        self._state.context = self
